@@ -340,7 +340,7 @@ stages:
               secretName: $(AKS_SECRET_NAME_MI_CLIENTID)
               secretType: generic
               secretArguments: --from-literal=$(AKS_SECRET_NAME_MI_CLIENTID)=$(getManagedIdentityClientId.managedIdentityClientId)
-          - task: replacetokens@5
+          - task: qetza.replacetokens.replacetokens-task.replacetokens@5
             displayName: substitute tokens in deployment manifest
             inputs:
               targetFiles: ./src/ContosoTraders.Api.Products/Manifests/Deployment.yaml
@@ -440,7 +440,7 @@ stages:
               kubernetesCluster: $(AKS_CLUSTER_NAME)$(SUFFIX)
               action: deploy
               manifests: ./src/ContosoTraders.Api.Products/Manifests/ClusterIssuer.yaml
-          - task: replacetokens@5
+          - task: qetza.replacetokens.replacetokens-task.replacetokens@5
             displayName: substitute tokens in certificate manifest
             inputs:
               targetFiles: ./src/ContosoTraders.Api.Products/Manifests/Certificate.yaml
@@ -457,7 +457,7 @@ stages:
               kubernetesCluster: $(AKS_CLUSTER_NAME)$(SUFFIX)
               action: deploy
               manifests: ./src/ContosoTraders.Api.Products/Manifests/Certificate.yaml
-          - task: replacetokens@5
+          - task: qetza.replacetokens.replacetokens-task.replacetokens@5
             displayName: substitute tokens in ingress manifest
             inputs:
               targetFiles: ./src/ContosoTraders.Api.Products/Manifests/Ingress.yaml
@@ -628,7 +628,7 @@ stages:
               azureSubscription: SERVICEPRINCIPAL
               scriptLocation: inlineScript
               inlineScript: echo "##vso[task.setvariable variable=vnetAcaSubnetId;isOutput=true]$(az keyvault secret show --vault-name $(KV_NAME)$(SUFFIX) -n vnetAcaSubnetId --query "value" -o tsv)"
-          - task: replacetokens@5
+          - task: qetza.replacetokens.replacetokens-task.replacetokens@5
             displayName: substitute tokens in load test config file
             inputs:
               targetFiles: ./loadtests/contoso-traders-carts-internal.yaml
