@@ -1321,6 +1321,7 @@ resource aks 'Microsoft.ContainerService/managedClusters@2022-10-02-preview' = {
         vmSize: 'standard_b2s'
         osType: 'Linux'
         mode: 'System'
+        availabilityZones: ['1', '2', '3'] // This ensures the VMSS behind AKS utilizes all three availability zones in the region.
       }
     ]
     linuxProfile: {
