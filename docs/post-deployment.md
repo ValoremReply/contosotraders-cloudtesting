@@ -37,18 +37,27 @@
 
 ## Chaos Studio
 
-### Experiment #1 – Availability Zone Outage
+### Kubernetes and Availability Zone Outage
 
-* If you use a Managed User-assigned Identity when creating this Chaos Experiment, you need to add a Role Permission to grant the Agent Pool Service Principal the ability to Auto Scale.
+If you use a Managed User-assigned Identity when creating a Chaos Experiment with AKS and/or VMSS Availability Zones, you need to add the following Role Permissions
+
+* Azure Kubernetes
+    * In the AKS Resource, `contoso-traders-aks`{suffix}, navigate to `Access Control (IAM)`
+    * Add `Role assignment`
+    * For Job function roles, add `Azure Kubernetes Service Cluster Admin Role`
+    * Assign access to `Managed Identity`, select Members, User-assigned managed identity
+    * Choose `contoso-traders-aks`{suffix}`-agentpool`
+
+    > See this link for more information on [Supported resource types and role assignments for Chaos Studio](https://learn.microsoft.com/en-us/azure/chaos-studio/chaos-studio-fault-providers)
+
+* Availability Zone Auto Scale
     * At the Subscription or Resource Group level, navigate to `Access Control (IAM)`
     * Add `Role assignment`
     * For Job function roles, add `Web Plan Contributor`
     * Assign access to `Managed Identity`, select Members, User-assigned managed identity
     * Choose `contoso-traders-aks`{suffix}`-agentpool`
 
-    > See this link for more information on [Supported resource types and role assignments for Chaos Studio](https://learn.microsoft.com/en-us/azure/chaos-studio/chaos-studio-fault-providers)
-
-### Experiment #2 - AKS Chaos Mesh Stress Chaos
+### AKS Chaos Mesh Stress Chaos
 
 * When creating an experiment to stress the AKS cluster, you need to make sure the Target VMSS has the Stress Chaos capability selected.
 
